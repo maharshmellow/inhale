@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var circleVar = false
+    
     var body: some View {
         VStack {
             Text("exhale")
@@ -19,6 +21,16 @@ struct ContentView: View {
             Spacer()
             Circle()
                 .frame(width: 150, height: 150, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                .scaleEffect(circleVar ? 2.5 : 1)
+                .animation(.easeInOut(duration: 3))
+                .onTapGesture {
+                    print("Tapped")
+                    
+                    let impactLight = UIImpactFeedbackGenerator(style: .light)
+                    impactLight.impactOccurred()
+                    
+                    circleVar.toggle()
+                }
             Spacer()
             Text("3")
                 .foregroundColor(.gray)
