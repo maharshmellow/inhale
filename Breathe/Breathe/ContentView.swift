@@ -7,22 +7,21 @@
 
 import SwiftUI
 
+let messages = ["inhale", "hold", "exhale", "tap the circle to start"]
+let pattern = [4, 7, 8] // inhale, hold, exhale
+
+enum states: Int {
+    case inhale = 0
+    case hold = 1
+    case exhale = 2
+    case stopped = 3
+}
+
 struct ContentView: View {
     @State private var circleVar = false
-    @State var repsRemaining = 3
-    
-    let messages = ["inhale", "hold", "exhale", "tap the circle to start"]
-    let pattern = [4, 7, 8] // inhale, hold, exhale
-    
-    enum states: Int {
-        case inhale = 0
-        case hold = 1
-        case exhale = 2
-        case stopped = 3
-    }
-    
     @State private var currentState = states.stopped
-    @State var timeRemaining = 0
+    @State private var timeRemaining = 0
+    @State private var repsRemaining = 3
     
     
     @State private var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
@@ -38,9 +37,20 @@ struct ContentView: View {
     func stopTimer() {
         self.timer.upstream.connect().cancel()
     }
+    
+    func getCircleSize(state: states) -> Double {
+        switch state {
+        case .inhale:
+            return 2.5
+        case .hold:
+            return 2.5
+        case .exhale:
+            return 0.8
+        default:
+            return 1.0
+        }
+    }
 
-    
-    
     var body: some View {
         VStack {
             Text("\(messages[currentState.rawValue])")
@@ -52,14 +62,15 @@ struct ContentView: View {
             Spacer()
             Circle()
                 .frame(width: 150, height: 150, alignment: .center)
-                .scaleEffect(circleVar ? 2.5 : 1)
-                .animation(.easeInOut(duration: 3))
+                .scaleEffect(CGFloat(getCircleSize(state: currentState)))
+                .animation(.easeInOut(duration: Double(currentState == states.stopped ? 1 : pattern[currentState.rawValue])))
                 .onTapGesture {
                     impactHeavy.impactOccurred()
                     
                     if currentState == states.stopped {
                         currentState = states.inhale
                         timeRemaining = pattern[states.inhale.rawValue]
+                        repsRemaining = 3
                         startTimer()
                     } else {
                         currentState = states.stopped
@@ -84,8 +95,29 @@ struct ContentView: View {
                 timeRemaining -= 1
                 impactLight.impactOccurred()
             }
-            // add some logic here for switching between exhale/inhale/hold
-            // use the switch case statements
+            
+            if timeRemaining == 0 {
+                switch currentState {
+                case .inhale:
+                    currentState = states.hold
+                case .hold:
+                    currentState = states.exhale
+                case .exhale:
+                    if repsRemaining == 0 {
+                        currentState = states.stopped
+                        stopTimer()
+                        return
+                    } else {
+                        currentState = states.inhale
+                        repsRemaining -= 1
+                    }
+                case .stopped:
+                    // should never occur because timer wouldn't run in the stopped state
+                    return
+                }
+                
+                timeRemaining = pattern[currentState.rawValue]
+            }
         }
     }
 }
