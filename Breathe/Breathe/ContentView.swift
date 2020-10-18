@@ -17,18 +17,15 @@ enum states: Int {
     case stopped = 3
 }
 
+let impactSoft = UIImpactFeedbackGenerator(style: .soft)
+let impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
+
 struct ContentView: View {
     @State private var circleVar = false
     @State private var currentState = states.stopped
     @State private var timeRemaining = 0
     @State private var repsRemaining = 3
-    
-    
     @State private var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    
-    let impactLight = UIImpactFeedbackGenerator(style: .light)
-    let impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
-    
     
     func startTimer() {
         self.timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
@@ -63,7 +60,7 @@ struct ContentView: View {
             Circle()
                 .frame(width: 150, height: 150, alignment: .center)
                 .scaleEffect(CGFloat(getCircleSize(state: currentState)))
-                .animation(.easeInOut(duration: Double(currentState == states.stopped ? 1 : pattern[currentState.rawValue])))
+                .animation(.easeInOut(duration: Double(currentState == states.stopped ? 3 : pattern[currentState.rawValue])))
                 .onTapGesture {
                     impactHeavy.impactOccurred()
                     
@@ -78,7 +75,6 @@ struct ContentView: View {
                         stopTimer()
                     }
                     
-                    
                     circleVar.toggle()
                 }
             Spacer()
@@ -86,14 +82,13 @@ struct ContentView: View {
                 .foregroundColor(.gray)
                 .font(.system(size: 32, weight: .semibold))
         }.onReceive(timer) { _ in
-            // TODO: if the timer is already half a second in and the button is pressed, the first countdown will only be half a second long -> maybe look into pausing and starting the actual timer instead of keeping it on
             if currentState == states.stopped {
                 return
             }
             
             if timeRemaining > 0 {
                 timeRemaining -= 1
-                impactLight.impactOccurred()
+                impactSoft.impactOccurred()
             }
             
             if timeRemaining == 0 {
@@ -106,6 +101,7 @@ struct ContentView: View {
                     if repsRemaining == 0 {
                         currentState = states.stopped
                         stopTimer()
+                        impactHeavy.impactOccurred()
                         return
                     } else {
                         currentState = states.inhale
