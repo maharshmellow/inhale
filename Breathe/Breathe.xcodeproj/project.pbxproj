@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E4845C08253C18EA00478166 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4845C07253C18EA00478166 /* SettingsView.swift */; };
 		E4CA0DAD253AB4A7006AF780 /* BreatheApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CA0DAC253AB4A7006AF780 /* BreatheApp.swift */; };
 		E4CA0DAF253AB4A7006AF780 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CA0DAE253AB4A7006AF780 /* ContentView.swift */; };
 		E4CA0DB1253AB4A9006AF780 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E4CA0DB0253AB4A9006AF780 /* Assets.xcassets */; };
@@ -33,6 +34,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E4845C07253C18EA00478166 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		E4CA0DA9253AB4A7006AF780 /* Breathe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Breathe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4CA0DAC253AB4A7006AF780 /* BreatheApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreatheApp.swift; sourceTree = "<group>"; };
 		E4CA0DAE253AB4A7006AF780 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 				E4CA0DB0253AB4A9006AF780 /* Assets.xcassets */,
 				E4CA0DB5253AB4A9006AF780 /* Info.plist */,
 				E4CA0DB2253AB4A9006AF780 /* Preview Content */,
+				E4845C07253C18EA00478166 /* SettingsView.swift */,
 			);
 			path = Breathe;
 			sourceTree = "<group>";
@@ -259,6 +262,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4845C08253C18EA00478166 /* SettingsView.swift in Sources */,
 				E4CA0DAF253AB4A7006AF780 /* ContentView.swift in Sources */,
 				E4CA0DAD253AB4A7006AF780 /* BreatheApp.swift in Sources */,
 			);

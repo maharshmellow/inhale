@@ -26,6 +26,7 @@ struct ContentView: View {
     @State private var timeRemaining = 0
     @State private var repsRemaining = 3
     @State private var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    @State var showSettingsView = false
     
     func startTimer() {
         self.timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
@@ -50,8 +51,23 @@ struct ContentView: View {
 
     var body: some View {
         VStack {
+            HStack {
+                Spacer()
+                Button(action: {
+                    self.showSettingsView.toggle()
+                }) {
+                    Image(systemName: "ellipsis")
+                        .font(.system(size: 20))
+                        .foregroundColor(.gray)
+                        .frame(width: 60, height: 20)
+                        .opacity(0.5)
+                }.sheet(isPresented: $showSettingsView) {
+                    SettingsView(showSettingsView: self.$showSettingsView)
+                }
+            }.padding()
+            
             Text("\(messages[currentState.rawValue])")
-                .padding(.top, 60)
+                .padding(.top, 50)
                 .font(.system(size: 28, weight: .medium))
             Text("0\(timeRemaining)")
                 .padding(.top, 80)
@@ -99,6 +115,7 @@ struct ContentView: View {
                     currentState = states.exhale
                 case .exhale:
                     if repsRemaining == 0 {
+                        // finished a full cycle
                         currentState = states.stopped
                         stopTimer()
                         impactHeavy.impactOccurred()
