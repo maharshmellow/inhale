@@ -10,29 +10,16 @@ import SwiftUI
 struct SettingsView: View {
     @Binding var showSettingsView: Bool
     
-    @State var test: Bool = false
-    @State var repCounter: Int = 3
-    
     @AppStorage("reduce_haptics") var reduceHaptics = false
     @AppStorage("inhale_time") var inhaleTime = 4
     @AppStorage("hold_time") var holdTime = 7
     @AppStorage("exhale_time") var exhaleTime = 8
+    @AppStorage("reps_count") var totalReps = 3
     
     var body: some View {
         NavigationView {
             List {
                 Section {
-                    NavigationLink(destination: Text("Detail View")) {
-                        HStack {
-                            ZStack {
-                                Image(systemName: "moon.fill")
-                                    .foregroundColor(.white)
-                                    .font(.callout)
-                            }.frame(width: 28, height: 28).background(Color.black).cornerRadius(6)
-                            Text("Theme")
-                        }
-                    }
-                    
                     Toggle(isOn: $reduceHaptics) {
                         HStack {
                             ZStack {
@@ -40,10 +27,9 @@ struct SettingsView: View {
                                     .foregroundColor(.white)
                                     .font(.callout)
                             }.frame(width: 28, height: 28).background(Color.orange).cornerRadius(6)
-                            Text("Reduce Haptics")
+                            Text("Disable Vibrations")
                         }
                     }
-                    // add stats -> number of focus exercises done (use the user defaults storage to count)
                 }
                 
                 Section(header: Text("Custom Breathing Pattern")) {
@@ -80,14 +66,14 @@ struct SettingsView: View {
                         }
                     }
                     
-                    Stepper(value: $repCounter, in: 1...50) {
+                    Stepper(value: $totalReps, in: 1...50) {
                         HStack {
                             ZStack {
                                 Image(systemName: "repeat")
                                     .foregroundColor(.white)
                                     .font(.callout)
                             }.frame(width: 28, height: 28).background(Color.gray).cornerRadius(6)
-                            Text("\(repCounter) \(repCounter == 1 ? "repetition" : "repetitions")")
+                            Text("\(totalReps) \(totalReps == 1 ? "repetition" : "repetitions")")
                         }
                     }
                     
@@ -95,7 +81,7 @@ struct SettingsView: View {
                         inhaleTime = 4
                         holdTime = 7
                         exhaleTime = 8
-                        repCounter = 3
+                        totalReps = 3
                     }) {
                         Text("Reset breathing pattern")
                     }

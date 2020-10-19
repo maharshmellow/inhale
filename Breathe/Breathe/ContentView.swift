@@ -37,10 +37,11 @@ struct ContentView: View {
     @AppStorage("inhale_time") var inhaleTime = 4
     @AppStorage("hold_time") var holdTime = 7
     @AppStorage("exhale_time") var exhaleTime = 8
+    @AppStorage("reps_count") var totalReps = 3
     
     @State private var currentState = states.stopped
     @State private var timeRemaining = 0
-    @State private var repsRemaining = 3
+    @State private var repsRemaining = 0    // will get updated on start
     @State private var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @State var showSettingsView = false
     
@@ -78,7 +79,6 @@ struct ContentView: View {
         self.timer.upstream.connect().cancel()
     }
     
-
     var body: some View {
         VStack {
             HStack {
@@ -96,7 +96,7 @@ struct ContentView: View {
                 }
             }.padding()
             
-            Text("\(messages[currentState.rawValue])")
+            Text(messages[currentState.rawValue])
                 .padding(.top, 50)
                 .font(.system(size: 28, weight: .medium))
             Text(String(format: "%02d", timeRemaining))
@@ -113,7 +113,7 @@ struct ContentView: View {
                     if currentState == states.stopped {
                         currentState = states.inhale
                         timeRemaining = getDuration(state: states.inhale)
-                        repsRemaining = 3
+                        repsRemaining = totalReps
                         startTimer()
                     } else {
                         currentState = states.stopped
@@ -132,16 +132,19 @@ struct ContentView: View {
             
             if timeRemaining > 0 {
                 timeRemaining -= 1
-                sendSoftFeedback()
+                sendSoftFeedback()  // second tick
             }
             
             if timeRemaining == 0 {
+                sendHeavyFeedback() // switching state
+                
                 switch currentState {
                 case .inhale:
                     currentState = states.hold
                 case .hold:
                     currentState = states.exhale
                 case .exhale:
+                    repsRemaining -= 1
                     if repsRemaining == 0 {
                         // finished a full cycle
                         currentState = states.stopped
@@ -150,7 +153,6 @@ struct ContentView: View {
                         return
                     } else {
                         currentState = states.inhale
-                        repsRemaining -= 1
                     }
                 case .stopped:
                     // should never occur because timer wouldn't run in the stopped state
