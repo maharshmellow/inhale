@@ -12,11 +12,11 @@ struct SettingsView: View {
     
     @State var test: Bool = false
     @State var repCounter: Int = 3
-    @State var inhaleTime: Int = 4
-    @State var holdTime: Int = 7
-    @State var exhaleTime: Int = 8
     
     @AppStorage("reduce_haptics") var reduceHaptics = false
+    @AppStorage("inhale_time") var inhaleTime = 4
+    @AppStorage("hold_time") var holdTime = 7
+    @AppStorage("exhale_time") var exhaleTime = 8
     
     var body: some View {
         NavigationView {

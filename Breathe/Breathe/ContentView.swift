@@ -8,8 +8,6 @@
 import SwiftUI
 
 let messages = ["inhale", "hold", "exhale", "tap the circle to start"]
-let pattern = [4, 7, 8] // inhale, hold, exhale
-
 enum states: Int {
     case inhale = 0
     case hold = 1
@@ -37,19 +35,27 @@ func sendSoftFeedback() {
 
 
 struct ContentView: View {
-    @State private var circleVar = false
+    @AppStorage("inhale_time") var inhaleTime = 4
+    @AppStorage("hold_time") var holdTime = 7
+    @AppStorage("exhale_time") var exhaleTime = 8
+    
     @State private var currentState = states.stopped
     @State private var timeRemaining = 0
     @State private var repsRemaining = 3
     @State private var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @State var showSettingsView = false
     
-    func startTimer() {
-        self.timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    }
-    
-    func stopTimer() {
-        self.timer.upstream.connect().cancel()
+    func getDuration(state: states) -> Int {
+        switch state {
+        case .inhale:
+            return inhaleTime
+        case .hold:
+            return holdTime
+        case .exhale:
+            return exhaleTime
+        default:
+            return 3
+        }
     }
     
     func getCircleSize(state: states) -> Double {
@@ -64,6 +70,16 @@ struct ContentView: View {
             return 1.0
         }
     }
+    
+    func startTimer() {
+        self.timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    }
+    
+    func stopTimer() {
+        self.timer.upstream.connect().cancel()
+    }
+    
+    
 
     var body: some View {
         VStack {
@@ -92,13 +108,13 @@ struct ContentView: View {
             Circle()
                 .frame(width: 150, height: 150, alignment: .center)
                 .scaleEffect(CGFloat(getCircleSize(state: currentState)))
-                .animation(.easeInOut(duration: Double(currentState == states.stopped ? 3 : pattern[currentState.rawValue])))
+                .animation(.easeInOut(duration: Double(currentState == states.stopped ? 3 : getDuration(state: currentState))))
                 .onTapGesture {
                     sendHeavyFeedback()
                     
                     if currentState == states.stopped {
                         currentState = states.inhale
-                        timeRemaining = pattern[states.inhale.rawValue]
+                        timeRemaining = getDuration(state: states.inhale)
                         repsRemaining = 3
                         startTimer()
                     } else {
@@ -106,8 +122,6 @@ struct ContentView: View {
                         timeRemaining = 0
                         stopTimer()
                     }
-                    
-                    circleVar.toggle()
                 }
             Spacer()
             Text("\(repsRemaining)")
@@ -145,7 +159,7 @@ struct ContentView: View {
                     return
                 }
                 
-                timeRemaining = pattern[currentState.rawValue]
+                timeRemaining = getDuration(state: currentState)
             }
         }
     }
