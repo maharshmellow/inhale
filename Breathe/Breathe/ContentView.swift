@@ -17,8 +17,24 @@ enum states: Int {
     case stopped = 3
 }
 
-let impactSoft = UIImpactFeedbackGenerator(style: .soft)
-let impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
+func sendHeavyFeedback() {
+    guard UserDefaults.standard.bool(forKey: "reduce_haptics") == false else {
+        return
+    }
+    
+    let impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
+    impactHeavy.impactOccurred()
+}
+
+func sendSoftFeedback() {
+    guard UserDefaults.standard.bool(forKey: "reduce_haptics") == false else {
+        return
+    }
+    
+    let impactSoft = UIImpactFeedbackGenerator(style: .soft)
+    impactSoft.impactOccurred()
+}
+
 
 struct ContentView: View {
     @State private var circleVar = false
@@ -78,7 +94,7 @@ struct ContentView: View {
                 .scaleEffect(CGFloat(getCircleSize(state: currentState)))
                 .animation(.easeInOut(duration: Double(currentState == states.stopped ? 3 : pattern[currentState.rawValue])))
                 .onTapGesture {
-                    impactHeavy.impactOccurred()
+                    sendHeavyFeedback()
                     
                     if currentState == states.stopped {
                         currentState = states.inhale
@@ -104,7 +120,7 @@ struct ContentView: View {
             
             if timeRemaining > 0 {
                 timeRemaining -= 1
-                impactSoft.impactOccurred()
+                sendSoftFeedback()
             }
             
             if timeRemaining == 0 {
@@ -118,7 +134,7 @@ struct ContentView: View {
                         // finished a full cycle
                         currentState = states.stopped
                         stopTimer()
-                        impactHeavy.impactOccurred()
+                        sendHeavyFeedback()
                         return
                     } else {
                         currentState = states.inhale

@@ -16,6 +16,8 @@ struct SettingsView: View {
     @State var holdTime: Int = 7
     @State var exhaleTime: Int = 8
     
+    @AppStorage("reduce_haptics") var reduceHaptics = false
+    
     var body: some View {
         NavigationView {
             List {
@@ -23,28 +25,29 @@ struct SettingsView: View {
                     NavigationLink(destination: Text("Detail View")) {
                         HStack {
                             ZStack {
-                                Image(systemName: "circle")
+                                Image(systemName: "moon.fill")
+                                    .foregroundColor(.white)
+                                    .font(.callout)
+                            }.frame(width: 28, height: 28).background(Color.black).cornerRadius(6)
+                            Text("Theme")
+                        }
+                    }
+                    
+                    Toggle(isOn: $reduceHaptics) {
+                        HStack {
+                            ZStack {
+                                Image(systemName: "iphone.radiowaves.left.and.right")
                                     .foregroundColor(.white)
                                     .font(.callout)
                             }.frame(width: 28, height: 28).background(Color.orange).cornerRadius(6)
-                            Text("Breathing Pattern")
-                        }
-                    }
-                    NavigationLink(destination: Text("Detail View")) {
-                        HStack {
-                            ZStack {
-                                Image(systemName: "airplane")
-                                    .foregroundColor(.white)
-                                    .font(.callout)
-                            }.frame(width: 28, height: 28).background(Color.blue).cornerRadius(6)
-                            Text("Theme")
+                            Text("Reduce Haptics")
                         }
                     }
                     // add stats -> number of focus exercises done (use the user defaults storage to count)
                 }
                 
                 Section(header: Text("Custom Breathing Pattern")) {
-                    Stepper(value: $inhaleTime, in: 1...50) {
+                    Stepper(value: $inhaleTime, in: 1...30) {
                         HStack {
                             ZStack {
                                 Image(systemName: "wave.3.left")
@@ -55,7 +58,7 @@ struct SettingsView: View {
                         }
                     }
                     
-                    Stepper(value: $holdTime, in: 1...50) {
+                    Stepper(value: $holdTime, in: 1...30) {
                         HStack {
                             ZStack {
                                 Image(systemName: "minus")
@@ -66,13 +69,13 @@ struct SettingsView: View {
                         }
                     }
                     
-                    Stepper(value: $exhaleTime, in: 1...50) {
+                    Stepper(value: $exhaleTime, in: 1...30) {
                         HStack {
                             ZStack {
                                 Image(systemName: "wave.3.right")
                                     .foregroundColor(.white)
                                     .font(.callout)
-                            }.frame(width: 28, height: 28).background(Color.black).cornerRadius(6)
+                            }.frame(width: 28, height: 28).background(Color.blue).cornerRadius(6)
                             Text("Exhale: \(exhaleTime) \(exhaleTime == 1 ? "second" : "seconds")")
                         }
                     }
@@ -86,6 +89,15 @@ struct SettingsView: View {
                             }.frame(width: 28, height: 28).background(Color.gray).cornerRadius(6)
                             Text("\(repCounter) \(repCounter == 1 ? "repetition" : "repetitions")")
                         }
+                    }
+                    
+                    Button(action: {
+                        inhaleTime = 4
+                        holdTime = 7
+                        exhaleTime = 8
+                        repCounter = 3
+                    }) {
+                        Text("Reset breathing pattern")
                     }
                 }
                 
