@@ -15,15 +15,6 @@ enum states: Int {
     case stopped = 3
 }
 
-func sendHeavyFeedback() {
-    guard UserDefaults.standard.bool(forKey: "reduce_haptics") == false else {
-        return
-    }
-    
-    let impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
-    impactHeavy.impactOccurred()
-}
-
 func sendSoftFeedback() {
     guard UserDefaults.standard.bool(forKey: "reduce_haptics") == false else {
         return
@@ -33,6 +24,14 @@ func sendSoftFeedback() {
     impactSoft.impactOccurred()
 }
 
+func sendHeavyFeedback() {
+    guard UserDefaults.standard.bool(forKey: "reduce_haptics") == false else {
+        return
+    }
+    
+    let impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
+    impactHeavy.impactOccurred()
+}
 
 struct ContentView: View {
     @AppStorage("inhale_time") var inhaleTime = 4
@@ -79,7 +78,6 @@ struct ContentView: View {
         self.timer.upstream.connect().cancel()
     }
     
-    
 
     var body: some View {
         VStack {
@@ -101,7 +99,7 @@ struct ContentView: View {
             Text("\(messages[currentState.rawValue])")
                 .padding(.top, 50)
                 .font(.system(size: 28, weight: .medium))
-            Text("0\(timeRemaining)")
+            Text(String(format: "%02d", timeRemaining))
                 .padding(.top, 80)
                 .font(.system(size: 48, weight: .semibold))
             Spacer()
