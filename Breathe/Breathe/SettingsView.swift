@@ -19,15 +19,19 @@ struct SettingsView: View {
     var body: some View {
         NavigationView {
             List {
-                Section {
-                    Toggle(isOn: $reduceHaptics) {
-                        HStack {
-                            ZStack {
-                                Image(systemName: "iphone.radiowaves.left.and.right")
-                                    .foregroundColor(.white)
-                                    .font(.callout)
-                            }.frame(width: 28, height: 28).background(Color.orange).cornerRadius(6)
-                            Text("Disable Vibrations")
+                
+                // don't show the disable vibrations toggle for ipad
+                if UIDevice.current.userInterfaceIdiom != .pad {
+                    Section {
+                        Toggle(isOn: $reduceHaptics) {
+                            HStack {
+                                ZStack {
+                                    Image(systemName: "iphone.radiowaves.left.and.right")
+                                        .foregroundColor(.white)
+                                        .font(.callout)
+                                }.frame(width: 28, height: 28).background(Color.orange).cornerRadius(6)
+                                Text("Disable Vibrations")
+                            }
                         }
                     }
                 }
@@ -72,7 +76,7 @@ struct SettingsView: View {
                                 Image(systemName: "repeat")
                                     .foregroundColor(.white)
                                     .font(.callout)
-                            }.frame(width: 28, height: 28).background(Color.gray).cornerRadius(6)
+                            }.frame(width: 28, height: 28).background(Color.green).cornerRadius(6)
                             Text("\(totalReps) \(totalReps == 1 ? "repetition" : "repetitions")")
                         }
                     }

@@ -59,15 +59,20 @@ struct ContentView: View {
     }
     
     func getCircleSize(state: states) -> Double {
+        var multiplier = 1.0
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            multiplier = 1.5
+        }
+        
         switch state {
         case .inhale:
-            return 2.5
+            return 2.5*multiplier
         case .hold:
-            return 2.5
+            return 2.5*multiplier
         case .exhale:
-            return 0.8
+            return 0.8*multiplier
         default:
-            return 1.0
+            return 1.0*multiplier
         }
     }
     
@@ -90,7 +95,7 @@ struct ContentView: View {
                         .font(.system(size: 20))
                         .foregroundColor(.gray)
                         .frame(width: 60, height: 20)
-                        .opacity(0.5)
+                        .opacity(0.6)
                 }.sheet(isPresented: $showSettingsView) {
                     SettingsView(showSettingsView: self.$showSettingsView)
                 }

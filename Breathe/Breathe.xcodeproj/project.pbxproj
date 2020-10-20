@@ -35,7 +35,7 @@
 
 /* Begin PBXFileReference section */
 		E4845C07253C18EA00478166 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		E4CA0DA9253AB4A7006AF780 /* Breathe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Breathe.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E4CA0DA9253AB4A7006AF780 /* Inhale.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Inhale.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4CA0DAC253AB4A7006AF780 /* BreatheApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreatheApp.swift; sourceTree = "<group>"; };
 		E4CA0DAE253AB4A7006AF780 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		E4CA0DB0253AB4A9006AF780 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -87,7 +87,7 @@
 		E4CA0DAA253AB4A7006AF780 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E4CA0DA9253AB4A7006AF780 /* Breathe.app */,
+				E4CA0DA9253AB4A7006AF780 /* Inhale.app */,
 				E4CA0DBA253AB4AA006AF780 /* BreatheTests.xctest */,
 				E4CA0DC5253AB4AA006AF780 /* BreatheUITests.xctest */,
 			);
@@ -150,7 +150,7 @@
 			);
 			name = Breathe;
 			productName = Breathe;
-			productReference = E4CA0DA9253AB4A7006AF780 /* Breathe.app */;
+			productReference = E4CA0DA9253AB4A7006AF780 /* Inhale.app */;
 			productType = "com.apple.product-type.application";
 		};
 		E4CA0DB9253AB4AA006AF780 /* BreatheTests */ = {
@@ -422,6 +422,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"Breathe/Preview Content\"";
 				DEVELOPMENT_TEAM = G9A2XM344U;
 				ENABLE_PREVIEWS = YES;
@@ -431,8 +432,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = net.maharsh.Breathe;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				LOCALIZED_STRING_SWIFTUI_SUPPORT = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = net.maharsh.inhale;
+				PRODUCT_NAME = Inhale;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -444,6 +446,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"Breathe/Preview Content\"";
 				DEVELOPMENT_TEAM = G9A2XM344U;
 				ENABLE_PREVIEWS = YES;
@@ -453,8 +456,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = net.maharsh.Breathe;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				LOCALIZED_STRING_SWIFTUI_SUPPORT = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = net.maharsh.inhale;
+				PRODUCT_NAME = Inhale;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
