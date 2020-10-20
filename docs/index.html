@@ -1,1 +1,78 @@
-Inhale
+<html>
+    <head>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+        <title>Inhale</title>
+        <link rel='shortcut icon' type='image/x-icon' href='./../favicon.ico' />
+    </head>
+
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            font-size: 20px;
+            margin-left: 20%;
+            margin-right: 20%;
+            margin-top: 30vh;
+            background-color:#fafafa
+        }
+
+        h1 {
+            letter-spacing: -0.03em;
+        }
+
+        .highlight {
+            background-color: #ffeb8a;
+            background-image: linear-gradient(to right, #ffeb8a 0%, #ffee90 100%);
+            padding: 2px;
+        }
+
+        #emailLink {
+            color: #1279e0;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        @keyframes scaleIn {
+            0%   {transform: scale(1, 1)}
+            20%  {transform: scale(2, 2)}
+            50%  {transform: scale(2, 2)}
+            100% {transform: scale(1, 1)}
+        }
+
+        #circle {
+            height: 100px;
+            width: 100px;
+            background-color: black;
+            border-radius: 50%;
+            display: inline-block;
+            animation: scaleIn 10s infinite ease-in-out;
+        }
+
+        #circleContainer {
+            text-align: center;
+            margin-bottom: 100px;
+        }
+
+        .grayText {
+            color: rgb(176, 176, 176);
+        }
+
+        #messageContainer {
+            margin-top: 50px;
+        }
+    </style>
+
+    <body>
+        <div id="circleContainer">
+            <span id="circle"></span>
+        </div>
+
+        <!-- <span id="title">Inhale</span> <br> -->
+
+        <div id="messageContainer">
+            inhale <br>
+            hold  <br> 
+            exhale <br>
+            <span class="grayText">guided breathing</span>
+        </div>
+    </body>
+</html>
