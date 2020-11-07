@@ -11,10 +11,10 @@ struct SettingsView: View {
     @Binding var showSettingsView: Bool
     
     @AppStorage("reduce_haptics") var reduceHaptics = false
-    @AppStorage("inhale_time") var inhaleTime = 4
-    @AppStorage("hold_time") var holdTime = 7
-    @AppStorage("exhale_time") var exhaleTime = 8
-    @AppStorage("reps_count") var totalReps = 3
+    @AppStorage("inhale_time") var inhaleTime = TimeConstants.defaultInhaleTime
+    @AppStorage("hold_time") var holdTime = TimeConstants.defaultHoldTime
+    @AppStorage("exhale_time") var exhaleTime = TimeConstants.defaultExhaleTime
+    @AppStorage("reps_count") var totalReps = TimeConstants.defaultTotalReps
     
     var body: some View {
         NavigationView {
