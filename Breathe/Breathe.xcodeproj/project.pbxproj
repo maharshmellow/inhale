@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		E41ABF8C255611BF000E34C8 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E41ABF8B255611BF000E34C8 /* HealthKit.framework */; };
 		E41ABF9125561E6E000E34C8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41ABF9025561E6E000E34C8 /* Constants.swift */; };
+		E477FC1225565E7300A97314 /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E477FC1125565E7300A97314 /* HealthKitManager.swift */; };
 		E4845C08253C18EA00478166 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4845C07253C18EA00478166 /* SettingsView.swift */; };
 		E4CA0DAD253AB4A7006AF780 /* BreatheApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CA0DAC253AB4A7006AF780 /* BreatheApp.swift */; };
 		E4CA0DAF253AB4A7006AF780 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CA0DAE253AB4A7006AF780 /* ContentView.swift */; };
@@ -39,6 +40,7 @@
 		E41ABF89255611BE000E34C8 /* Inhale.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Inhale.entitlements; sourceTree = "<group>"; };
 		E41ABF8B255611BF000E34C8 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		E41ABF9025561E6E000E34C8 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		E477FC1125565E7300A97314 /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
 		E4845C07253C18EA00478166 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		E4CA0DA9253AB4A7006AF780 /* Inhale.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Inhale.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4CA0DAC253AB4A7006AF780 /* BreatheApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreatheApp.swift; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 				E4CA0DB2253AB4A9006AF780 /* Preview Content */,
 				E4845C07253C18EA00478166 /* SettingsView.swift */,
 				E41ABF9025561E6E000E34C8 /* Constants.swift */,
+				E477FC1125565E7300A97314 /* HealthKitManager.swift */,
 			);
 			path = Breathe;
 			sourceTree = "<group>";
@@ -282,6 +285,7 @@
 				E4845C08253C18EA00478166 /* SettingsView.swift in Sources */,
 				E4CA0DAF253AB4A7006AF780 /* ContentView.swift in Sources */,
 				E4CA0DAD253AB4A7006AF780 /* BreatheApp.swift in Sources */,
+				E477FC1225565E7300A97314 /* HealthKitManager.swift in Sources */,
 				E41ABF9125561E6E000E34C8 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

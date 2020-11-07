@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import HealthKit
 
 let messages = ["inhale", "hold", "exhale", "tap the circle to start"]
 enum states: Int {
@@ -15,8 +16,10 @@ enum states: Int {
     case stopped = 3
 }
 
-// duration in ms used to save the length of each session in HealthKit
-private var mindfullnessDuration = 0
+// duration in seconds - used to save the length of each session in HealthKit
+private var mindfulMinutes = 0
+let HKManager = HealthKitManager()
+
 
 func sendSoftFeedback() {
     guard UserDefaults.standard.bool(forKey: "reduce_haptics") == false else {
@@ -88,9 +91,9 @@ struct ContentView: View {
     }
     
     func saveToHealthKit() {
-        print("Saved \(mindfullnessDuration)")
+        print("Saved \(mindfulMinutes)")
         
-        mindfullnessDuration = 0
+        mindfulMinutes = 0
     }
     
     var body: some View {
@@ -145,7 +148,7 @@ struct ContentView: View {
                 return
             }
             
-            mindfullnessDuration += 1
+            mindfulMinutes += 1
             
             if timeRemaining > 0 {
                 timeRemaining -= 1

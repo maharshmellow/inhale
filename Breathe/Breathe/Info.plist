@@ -37,6 +37,10 @@
 	</array>
 	<key>UIStatusBarHidden</key>
 	<true/>
+	<key>NSHealthShareUsageDescription</key>
+	<string>Inhale will save the duration of each session as Mindful Minutes in Apple Health</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>Inhale will save the duration of each session as Mindful Minutes in Apple Health</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

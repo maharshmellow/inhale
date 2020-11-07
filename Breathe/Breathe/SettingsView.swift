@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import HealthKit
+
 
 struct SettingsView: View {
     @Binding var showSettingsView: Bool
@@ -15,6 +17,8 @@ struct SettingsView: View {
     @AppStorage("hold_time") var holdTime = TimeConstants.defaultHoldTime
     @AppStorage("exhale_time") var exhaleTime = TimeConstants.defaultExhaleTime
     @AppStorage("reps_count") var totalReps = TimeConstants.defaultTotalReps
+    @AppStorage("save_healthkit") var saveToAppleHealth = HKManager.haveAuthorization()
+
     
     var body: some View {
         NavigationView {
@@ -82,12 +86,35 @@ struct SettingsView: View {
                     }
                     
                     Button(action: {
-                        inhaleTime = 4
-                        holdTime = 7
-                        exhaleTime = 8
-                        totalReps = 3
+                        inhaleTime = TimeConstants.defaultInhaleTime
+                        holdTime = TimeConstants.defaultHoldTime
+                        exhaleTime = TimeConstants.defaultExhaleTime
+                        totalReps = TimeConstants.defaultTotalReps
                     }) {
                         Text("Reset breathing pattern")
+                    }
+                }
+                
+                
+                if HKManager.isHealthKitAvailable() {
+                    Section(footer: Text("The duration of each session will be saved in Apple Health as Mindful Minutes. If access has been previously revoked, this toggle will have no effect. Access will need to be granted through Settings > Privacy > Inhale.")) {
+                        Toggle(isOn: $saveToAppleHealth) {
+                            HStack {
+                                ZStack {
+                                    Image(systemName: "heart.fill")
+                                        .foregroundColor(.white)
+                                        .font(.callout)
+                                }.frame(width: 28, height: 28).background(Color.red).cornerRadius(6)
+                                Text("Save to Apple Health")
+                            }
+                        }.onTapGesture {
+                            print("Tap \(saveToAppleHealth)")
+                            
+                            // if the bool is false, this means the person just tapped it to toggle it to true
+                            if !saveToAppleHealth {
+                                HKManager.getAuthorization()
+                            }
+                        }
                     }
                 }
                 
