@@ -15,6 +15,9 @@ enum states: Int {
     case stopped = 3
 }
 
+// duration in ms used to save the length of each session in HealthKit
+private var mindfullnessDuration = 0
+
 func sendSoftFeedback() {
     guard UserDefaults.standard.bool(forKey: "reduce_haptics") == false else {
         return
@@ -84,6 +87,12 @@ struct ContentView: View {
         self.timer.upstream.connect().cancel()
     }
     
+    func saveToHealthKit() {
+        print("Saved \(mindfullnessDuration)")
+        
+        mindfullnessDuration = 0
+    }
+    
     var body: some View {
         VStack {
             HStack {
@@ -124,6 +133,7 @@ struct ContentView: View {
                         currentState = states.stopped
                         timeRemaining = 0
                         stopTimer()
+                        saveToHealthKit()
                     }
                 }
             Spacer()
@@ -134,6 +144,8 @@ struct ContentView: View {
             if currentState == states.stopped {
                 return
             }
+            
+            mindfullnessDuration += 1
             
             if timeRemaining > 0 {
                 timeRemaining -= 1
@@ -154,6 +166,7 @@ struct ContentView: View {
                         // finished a full cycle
                         currentState = states.stopped
                         stopTimer()
+                        saveToHealthKit()
                         sendHeavyFeedback()
                         return
                     } else {
