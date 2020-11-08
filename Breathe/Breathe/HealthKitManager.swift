@@ -48,7 +48,24 @@ class HealthKitManager {
         }
         
         return false
-
+    }
+    
+    func saveMindfulSession(startTime: Date, endTime: Date) -> Void {
+        guard UserDefaults.standard.bool(forKey: "save_healthkit") && self.haveAuthorization() else {
+            return
+        }
+        
+        print("Saved \(startTime) \(endTime)")
+        
+        // not sure why the value has to be 0 -> the documentation page is not working rn
+        let mindfulSample = HKCategorySample(type: writeType, value: 0, start: startTime, end: endTime)
+        healthStore!.save(mindfulSample) { (success, error) in
+            if error != nil {
+                print("Error \(error!)")
+            }
+        }
+        
+        
     }
     
     // save

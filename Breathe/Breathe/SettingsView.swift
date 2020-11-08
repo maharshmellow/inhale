@@ -23,8 +23,7 @@ struct SettingsView: View {
     var body: some View {
         NavigationView {
             List {
-                
-                // don't show the disable vibrations toggle for ipad
+                // don't show the disable vibrations toggle for iPad
                 if UIDevice.current.userInterfaceIdiom != .pad {
                     Section {
                         Toggle(isOn: $reduceHaptics) {
