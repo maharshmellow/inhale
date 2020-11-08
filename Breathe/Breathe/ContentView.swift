@@ -63,21 +63,16 @@ struct ContentView: View {
         }
     }
     
-    func getCircleSize(state: states) -> Double {
-        var multiplier = 1.0
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            multiplier = 1.5
-        }
-        
+    func getCircleScale(state: states) -> Double {
         switch state {
         case .inhale:
-            return 2.5*multiplier
+            return 3
         case .hold:
-            return 2.5*multiplier
+            return 3
         case .exhale:
-            return 0.8*multiplier
+            return 0.7
         default:
-            return 1.0*multiplier
+            return 1.0
         }
     }
     
@@ -95,52 +90,54 @@ struct ContentView: View {
     }
     
     var body: some View {
-        VStack {
-            HStack {
-                Spacer()
-                Button(action: {
-                    self.showSettingsView.toggle()
-                }) {
-                    Image(systemName: "ellipsis")
-                        .font(.system(size: 20))
-                        .foregroundColor(.gray)
-                        .frame(width: 60, height: 20)
-                        .opacity(0.6)
-                }.sheet(isPresented: $showSettingsView) {
-                    SettingsView(showSettingsView: self.$showSettingsView)
-                }
-            }.padding()
-            
-            Text(messages[currentState.rawValue])
-                .padding(.top, 50)
-                .font(.system(size: 28, weight: .medium))
-            Text(String(format: "%02d", timeRemaining))
-                .padding(.top, 80)
-                .font(.system(size: 48, weight: .semibold))
-            Spacer()
-            Circle()
-                .frame(width: 150, height: 150, alignment: .center)
-                .scaleEffect(CGFloat(getCircleSize(state: currentState)))
-                .animation(.easeInOut(duration: Double(currentState == states.stopped ? 3 : getDuration(state: currentState))))
-                .onTapGesture {
-                    sendHeavyFeedback()
-                    
-                    if currentState == states.stopped {
-                        currentState = states.inhale
-                        timeRemaining = getDuration(state: states.inhale)
-                        repsRemaining = totalReps
-                        startTimer()
-                    } else {
-                        currentState = states.stopped
-                        timeRemaining = 0
-                        stopTimer()
-                        saveToHealthKit()
+        GeometryReader { geometry in
+            VStack {
+                HStack {
+                    Spacer()
+                    Button(action: {
+                        self.showSettingsView.toggle()
+                    }) {
+                        Image(systemName: "ellipsis")
+                            .font(.system(size: 20))
+                            .foregroundColor(.gray)
+                            .frame(width: 60, height: 20)
+                            .opacity(0.6)
+                    }.sheet(isPresented: $showSettingsView) {
+                        SettingsView(showSettingsView: self.$showSettingsView)
                     }
-                }
-            Spacer()
-            Text("\(repsRemaining)")
-                .foregroundColor(.gray)
-                .font(.system(size: 32, weight: .semibold))
+                }.padding()
+                
+                Text(messages[currentState.rawValue])
+                    .padding(.top, 50)
+                    .font(.system(size: 28, weight: .medium))
+                Text(String(format: "%02d", timeRemaining))
+                    .padding(.top, 80)
+                    .font(.system(size: 48, weight: .semibold))
+                Spacer()
+                Circle()
+                    .frame(width: min(geometry.size.height/4, geometry.size.width/4), height: min(geometry.size.height/4, geometry.size.width/4), alignment: .center)
+                    .scaleEffect(CGFloat(getCircleScale(state: currentState)))
+                    .animation(.easeInOut(duration: Double(currentState == states.stopped ? 3 : getDuration(state: currentState))))
+                    .onTapGesture {
+                        sendHeavyFeedback()
+                        
+                        if currentState == states.stopped {
+                            currentState = states.inhale
+                            timeRemaining = getDuration(state: states.inhale)
+                            repsRemaining = totalReps
+                            startTimer()
+                        } else {
+                            currentState = states.stopped
+                            timeRemaining = 0
+                            stopTimer()
+                            saveToHealthKit()
+                        }
+                    }
+                Spacer()
+                Text("\(repsRemaining)")
+                    .foregroundColor(.gray)
+                    .font(.system(size: 32, weight: .semibold))
+            }
         }.onReceive(timer) { _ in
             if currentState == states.stopped {
                 return

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import HealthKit
+import CoreHaptics
 
 
 struct SettingsView: View {
@@ -24,7 +25,7 @@ struct SettingsView: View {
         NavigationView {
             List {
                 // don't show the disable vibrations toggle for iPad
-                if UIDevice.current.userInterfaceIdiom != .pad {
+                if CHHapticEngine.capabilitiesForHardware().supportsHaptics {
                     Section {
                         Toggle(isOn: $reduceHaptics) {
                             HStack {

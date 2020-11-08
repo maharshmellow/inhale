@@ -12,7 +12,6 @@ import HealthKit
 class HealthKitManager {
     var healthStore: HKHealthStore?
     private let writeType = HKObjectType.categoryType(forIdentifier: HKCategoryTypeIdentifier.mindfulSession)!
-    
 
     init() {
         if HKHealthStore.isHealthDataAvailable() {
@@ -43,10 +42,9 @@ class HealthKitManager {
     }
     
     func haveAuthorization() -> Bool {
-        if (healthStore!.authorizationStatus(for: writeType) == .sharingAuthorized) {
+        if isHealthKitAvailable() && healthStore!.authorizationStatus(for: writeType) == .sharingAuthorized {
             return true
         }
-        
         return false
     }
     
@@ -55,18 +53,14 @@ class HealthKitManager {
             return
         }
         
-        print("Saved \(startTime) \(endTime)")
-        
         // not sure why the value has to be 0 -> the documentation page is not working rn
         let mindfulSample = HKCategorySample(type: writeType, value: 0, start: startTime, end: endTime)
         healthStore!.save(mindfulSample) { (success, error) in
             if error != nil {
                 print("Error \(error!)")
+            } else {
+                print("Saved \(startTime) \(endTime)")
             }
         }
-        
-        
     }
-    
-    // save
 }
