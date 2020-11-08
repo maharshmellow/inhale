@@ -24,7 +24,6 @@ struct SettingsView: View {
     var body: some View {
         NavigationView {
             List {
-                // don't show the disable vibrations toggle for iPad
                 if CHHapticEngine.capabilitiesForHardware().supportsHaptics {
                     Section {
                         Toggle(isOn: $reduceHaptics) {
@@ -95,7 +94,6 @@ struct SettingsView: View {
                     }
                 }
                 
-                
                 if HKManager.isHealthKitAvailable() {
                     Section(footer: Text("The duration of each session will be saved in Apple Health as Mindful Minutes. If access has been previously revoked, this toggle will have no effect. Access will need to be granted through Settings > Privacy > Inhale.")) {
                         Toggle(isOn: $saveToAppleHealth) {
@@ -117,7 +115,6 @@ struct SettingsView: View {
                         }
                     }
                 }
-                
             }.listStyle(GroupedListStyle())
             .navigationTitle("Settings")
             .navigationBarItems(trailing: Button(action: {

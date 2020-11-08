@@ -54,7 +54,7 @@ class HealthKitManager {
         }
         
         // not sure why the value has to be 0 -> the documentation page is not working rn
-        let mindfulSample = HKCategorySample(type: writeType, value: 0, start: startTime, end: endTime)
+        let mindfulSample = HKCategorySample(type: writeType, value: HKCategoryValue.notApplicable.rawValue, start: startTime, end: endTime)
         healthStore!.save(mindfulSample) { (success, error) in
             if error != nil {
                 print("Error \(error!)")
