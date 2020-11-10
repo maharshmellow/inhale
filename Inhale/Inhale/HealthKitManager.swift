@@ -35,7 +35,6 @@ class HealthKitManager {
                 }
                 
             } else {
-                // the sheet wasn't shown
                 print("Not shown sheet")
             }
         })
