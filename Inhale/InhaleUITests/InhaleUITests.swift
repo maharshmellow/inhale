@@ -1,13 +1,13 @@
 //
-//  BreatheUITests.swift
-//  BreatheUITests
+//  InhaleUITests.swift
+//  InhaleUITests
 //
 //  Created by Maharsh Patel on 2020-10-16.
 //
 
 import XCTest
 
-class BreatheUITests: XCTestCase {
+class InhaleUITests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.

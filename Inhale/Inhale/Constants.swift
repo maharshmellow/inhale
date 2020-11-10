@@ -1,6 +1,6 @@
 //
 //  Constants.swift
-//  Breathe
+//  Inhale
 //
 //  Created by Maharsh Patel on 2020-11-06.
 //
