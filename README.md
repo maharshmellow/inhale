@@ -1,4 +1,4 @@
-![Banner](https://user-images.githubusercontent.com/4590693/101271569-28181180-3741-11eb-95e1-cbef29ae8e9c.png)
+![Banner](https://user-images.githubusercontent.com/4590693/101975746-0795fe80-3bfc-11eb-9dd5-334c0cd7014e.png)
 
 Inhale is a guided breathing app for iOS. It was made primarly to learn SwiftUI :) 
 
